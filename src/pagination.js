@@ -2,6 +2,7 @@ var Pagination = function(){
   var self = this;
   self.items = [];
   self.perPage = 4;
+  self.pageIdx = 1;
   self.leftEdge = 3;
   self.centerEdge = 3;
   self.rightEdge = 3;
@@ -18,6 +19,7 @@ var Pagination = function(){
   };
   self.showIterPages = function(idx){
     // TODO : create left
+    self.pageIdx = idx;
     var pageSize =  self.getPageSize();
     var tmp = [];
     var leftItems = [];
@@ -50,26 +52,27 @@ var Pagination = function(){
     var diff = rightMin - centerMax;
     var centerRange;
 
-    if (centerMin -1> self.leftEdge ){
-      centerRange = _.range(centerMin - self.leftEdge-1,centerMin-1);
-      console.log(centerRange);
-    }
+    //  push to left items.
+    // if (centerMin -self.leftEdge> 1 ){
+    //   centerRange = _.range(centerMin - self.leftEdge-1,centerMin-1);
+    //   // console.log(centerRange);
+    // }
 
     // 一番小さいページがleftEdgeのページより大きい時、結合する。
 
-    if (diff === 0 || diff === 1 ){
+    console.log(diff);
+
+    if (Math.abs(diff) <= 2){
       tmp = _.union(idx,centerItems,rightItems);
     }else{
-
       tmp = _.union(idx,centerItems,"..",rightItems);
-
     }
+
     if(centerRange){
       tmp = _.union(centerRange,tmp);
     }
     var last = _.last(tmp);
     if (last === ".."){
-      console.log("lflfl");
       tmp = _.without(tmp,"..");
     }
 
