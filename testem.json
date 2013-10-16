@@ -1,0 +1,11 @@
+
+{
+  "framework" : "mocha",
+  "src_files" : [
+    "src//*.js",
+    "vendor/*.js",
+    "test/*_test.js"
+  ],
+  "launch_in_dev":["chrome"]
+}
+
